@@ -1,4 +1,4 @@
-SELECT
+﻿SELECT
 t.cntrID,
 guest.org_num_of_contracts(t.orgID) AS 'org_cntr_num',
 guest.org_one_side_severance_share(t.orgID) AS 'org_1s_sev',
