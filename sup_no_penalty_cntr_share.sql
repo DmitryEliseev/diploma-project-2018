@@ -8,6 +8,7 @@
 RETURNS FLOAT
 AS
 BEGIN
+  DECLARE @num_of_contracts FLOAT = guest.sup_num_of_contracts(@SupID)
   DECLARE @no_penalty_cntr_num INT = (
     SELECT COUNT(*)
     FROM
@@ -21,9 +22,16 @@ BEGIN
       LEFT JOIN DV.d_OOS_Penalties AS pnl ON pnl.RefContract = cntr.ID
       WHERE
         sup.ID = @SupID AND 
-    	cntrSt.ID IN (3, 4) AND
+    	  cntrSt.ID IN (3, 4) AND
         pnl.Accrual IS NULL
     )t 
   )
-  RETURN ROUND(@no_penalty_cntr_num / guest.sup_num_of_contracts(@SupID), 5)
+  
+  -- Обработка случая, когда у поставщика еще нет ни одного завершенного контракта
+  IF @num_of_contracts = 0
+  BEGIN
+    RETURN 0
+  END
+  
+  RETURN ROUND(@no_penalty_cntr_num / @num_of_contracts, 5)
 END

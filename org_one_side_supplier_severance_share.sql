@@ -10,6 +10,7 @@
 RETURNS FLOAT
 AS
 BEGIN
+  DECLARE @num_of_contracts FLOAT =  guest.org_num_of_contracts(@OrgID)
   DECLARE @num_of_bad_contracts INT = (
   	SELECT COUNT(*)
   	FROM
@@ -26,5 +27,12 @@ BEGIN
   			org.ID = @OrgID
   	)t
   )
-  RETURN ROUND(@num_of_bad_contracts / guest.org_num_of_contracts(@OrgID), 5)
+  
+   -- Обработка случая, когда у заказщика нет завершенных контрактов
+  IF @num_of_contracts = 0
+  BEGIN
+    RETURN 0
+  END
+  
+  RETURN ROUND(@num_of_bad_contracts / @num_of_contracts, 5)
 END

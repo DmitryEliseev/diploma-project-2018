@@ -7,6 +7,7 @@
 RETURNS FLOAT
 AS
 BEGIN
+  DECLARE @num_of_contracts FLOAT = guest.sup_num_of_contracts(@SupID)
   DECLARE @cur_okpd_contracts_num INT = (
     SELECT COUNT(*)
     FROM
@@ -25,8 +26,14 @@ BEGIN
     )t
   )
   
+  -- Обработка случая, когда у поставщика еще нет ни одного завершенного контракта
+  IF @num_of_contracts = 0
+  BEGIN
+    RETURN 0
+  END
+  
   -- КОСТЫЛЬ: округление значений больших 1 до 1
-  DECLARE @share FLOAT = ROUND(@cur_okpd_contracts_num / guest.sup_num_of_contracts(@SupID), 5)
+  DECLARE @share FLOAT = ROUND(@cur_okpd_contracts_num / @num_of_contracts, 5)
   IF @share > 1
   BEGIN
     RETURN FLOOR(@share)
