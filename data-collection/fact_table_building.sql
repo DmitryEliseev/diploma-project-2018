@@ -13,8 +13,10 @@ guest.sup_one_side_severance_share(t.supID) AS 'sup_1s_sev',
 guest.sup_one_side_org_severance_share(t.supID) AS 'sup_1s_org_sev',
 guest.sup_similar_contracts_by_price_share(t.supID, t.valPrice) AS 'sup_sim_price',
 
-t.supType,
-t.orgForm,
+t.supType AS 'sup_type',
+t.supStatus AS 'sup_status',
+t.orgForm AS 'org_form',
+t.orgType AS 'org_type',
 
 CASE
   WHEN (t.valPMP > 0) AND (t.valPrice > t.valPMP) THEN 1
@@ -25,9 +27,13 @@ CASE
   ELSE 0
 END AS price_too_low,
 
-t.valPrice as 'price',
-t.valPMP as 'pmp',
-t.okpdCode as 'okpd',
+t.valPrice AS 'price',
+t.valPMP AS 'pmp',
+t.okpdCode AS 'okpd',
+t.typeProd AS 'type_prod',
+t.cntrLvl AS 'cntr_lvl',
+t.signDate AS 'sign_date',
+t.execDate AS 'exec_date',
 
 guest.pred_variable(t.cntrID) AS 'cntr_result'
 
@@ -37,11 +43,17 @@ FROM
   cntr.ID AS cntrID,
   org.ID AS orgID, 
   sup.ID AS supID, 
+  sup.RefStatusSup AS supStatus,
   okpd.Code AS okpdCode, 
   val.Price AS valPrice,
   val.PMP AS valPMP,
   supType.Code AS supType,
-  orgForm.code as orgForm
+  orgForm.code AS orgForm,
+  org.RefTypeOrg AS orgType,
+  val.RefLevelOrder AS cntrLvl,
+  okpd.RefTypeP2 AS typeProd,
+  cntr.RefSignDate AS signDate,
+  cntr.RefExecution AS execDate
   FROM DV.f_OOS_Value AS val
   INNER JOIN DV.d_OOS_Suppliers AS sup ON sup.ID = val.RefSupplier
   INNER JOIN DV.d_OOS_Org AS org ON org.ID = val.RefOrg
@@ -51,14 +63,18 @@ FROM
   INNER JOIN DV.d_OOS_OKPD2 AS okpd ON okpd.ID = prods.RefOKPD2
   INNER JOIN DV.fx_OOS_PartType AS supType ON supType.ID = sup.RefPartType
   INNER JOIN DV.fx_OOS_OrgForm AS orgForm ON orgForm.ID = sup.RefFormOrg
-   WHERE 
+  WHERE 
     guest.pred_variable(cntr.ID) = 0 AND
     val.Price > 0 AND --Контракт реальный
-    cntr.RefTypePurch != 6 --Не закупка у единственного поставщика
+    cntr.RefTypePurch != 6 AND --Не закупка у единственного поставщика
+    cntr.RefStage != -1 AND --Контракт завершен
+    cntr.RefStage != 1 AND
+    cntr.RefStage != 2 AND
+    cntr.RefSignDate > 20150000 --Контракт заключен не ранее 2015 года
 )t
 
 UNION
-SELECT TOP(6000)
+SELECT TOP(16000)
 t.cntrID,
 guest.org_num_of_contracts(t.orgID) AS 'org_cntr_num',
 guest.org_one_side_severance_share(t.orgID) AS 'org_1s_sev',
@@ -73,8 +89,10 @@ guest.sup_one_side_severance_share(t.supID) AS 'sup_1s_sev',
 guest.sup_one_side_org_severance_share(t.supID) AS 'sup_1s_org_sev',
 guest.sup_similar_contracts_by_price_share(t.supID, t.valPrice) AS 'sup_sim_price',
 
-t.supType,
-t.orgForm,
+t.supType AS 'sup_type',
+t.supStatus AS 'sup_status',
+t.orgForm AS 'org_form',
+t.orgType AS 'org_type',
 
 CASE
   WHEN (t.valPMP > 0) AND (t.valPrice > t.valPMP) THEN 1
@@ -85,9 +103,13 @@ CASE
   ELSE 0
 END AS price_too_low,
 
-t.valPrice as 'price',
-t.valPMP as 'pmp',
-t.okpdCode as 'okpd',
+t.valPrice AS 'price',
+t.valPMP AS 'pmp',
+t.okpdCode AS 'okpd',
+t.typeProd AS 'type_prod',
+t.cntrLvl AS 'cntr_lvl',
+t.signDate AS 'sign_date',
+t.execDate AS 'exec_date',
 
 guest.pred_variable(t.cntrID) AS 'cntr_result'
 
@@ -96,12 +118,18 @@ FROM
   SELECT DISTINCT
   cntr.ID AS cntrID,
   org.ID AS orgID, 
-  sup.ID AS supID, 
+  sup.ID AS supID,
+  sup.RefStatusSup AS supStatus,
   okpd.Code AS okpdCode, 
   val.Price AS valPrice,
   val.PMP AS valPMP,
   supType.Code AS supType,
-  orgForm.code as orgForm
+  orgForm.code AS orgForm,
+  org.RefTypeOrg AS orgType,
+  val.RefLevelOrder AS cntrLvl,
+  okpd.RefTypeP2 As typeProd,
+  cntr.RefSignDate AS signDate,
+  cntr.RefExecution AS execDate
   FROM DV.f_OOS_Value AS val
   INNER JOIN DV.d_OOS_Suppliers AS sup ON sup.ID = val.RefSupplier
   INNER JOIN DV.d_OOS_Org AS org ON org.ID = val.RefOrg
@@ -114,13 +142,9 @@ FROM
   WHERE 
     guest.pred_variable(cntr.ID) = 1 AND
     val.Price > 0 AND --Контракт реальный
-    cntr.RefTypePurch != 6 --Не закупка у единственного поставщика
+    cntr.RefTypePurch != 6 AND --Не закупка у единственного поставщика
+    cntr.RefStage != -1 AND --Контракт завершен
+    cntr.RefStage != 1 AND
+    cntr.RefStage != 2 AND
+    cntr.RefSignDate > 20150000 --Контракт заключен не ранее 2015 года
 )t
-
-/*
-25.02 
-Общее время выполнения запроса около 80 мин
-
-Создан индекс. При параллельном выполнении обоих частей запроса
-выполнение скрипта занимает 25 минут
-*/
