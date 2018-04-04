@@ -30,7 +30,6 @@ END AS price_too_low,
 t.valPrice AS 'price',
 t.valPMP AS 'pmp',
 t.okpdCode AS 'okpd',
-t.typeProd AS 'type_prod',
 t.cntrLvl AS 'cntr_lvl',
 t.signDate AS 'sign_date',
 t.execDate AS 'exec_date',
@@ -51,7 +50,6 @@ FROM
   orgForm.code AS orgForm,
   org.RefTypeOrg AS orgType,
   val.RefLevelOrder AS cntrLvl,
-  okpd.RefTypeP2 AS typeProd,
   cntr.RefSignDate AS signDate,
   cntr.RefExecution AS execDate
   FROM DV.f_OOS_Value AS val
@@ -106,7 +104,6 @@ END AS price_too_low,
 t.valPrice AS 'price',
 t.valPMP AS 'pmp',
 t.okpdCode AS 'okpd',
-t.typeProd AS 'type_prod',
 t.cntrLvl AS 'cntr_lvl',
 t.signDate AS 'sign_date',
 t.execDate AS 'exec_date',
@@ -127,7 +124,6 @@ FROM
   orgForm.code AS orgForm,
   org.RefTypeOrg AS orgType,
   val.RefLevelOrder AS cntrLvl,
-  okpd.RefTypeP2 As typeProd,
   cntr.RefSignDate AS signDate,
   cntr.RefExecution AS execDate
   FROM DV.f_OOS_Value AS val

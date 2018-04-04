@@ -36,7 +36,7 @@ BEGIN
   DECLARE @share FLOAT = ROUND(@cur_okpd_contracts_num / @num_of_contracts, 5)
   IF @share > 1
   BEGIN
-    RETURN FLOOR(@share)
+    RETURN 1
   END
   
   RETURN @share
