@@ -14,8 +14,8 @@ BEGIN
     INNER JOIN DV.d_OOS_Contracts AS cntr ON cntr.ID = val.RefContract
     INNER JOIN DV.fx_OOS_ContractStage AS cntrStg ON cntrStg.ID = cntr.RefStage
     WHERE 
-		org.ID = @OrgID AND 
-		cntrStg.ID IN (3, 4)
+  		org.ID = @OrgID AND 
+  		cntrStg.ID IN (3, 4)
   )
   RETURN @num_of_all_finished_contracts
 END

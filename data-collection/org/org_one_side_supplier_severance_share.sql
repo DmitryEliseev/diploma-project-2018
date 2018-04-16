@@ -10,7 +10,7 @@
 RETURNS FLOAT
 AS
 BEGIN
-  DECLARE @num_of_contracts FLOAT =  guest.org_num_of_contracts(@OrgID)
+  DECLARE @num_of_contracts FLOAT = guest.org_num_of_contracts(@OrgID)
   DECLARE @num_of_bad_contracts INT = (
   	SELECT COUNT(*)
   	FROM
