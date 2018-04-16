@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION org_one_side_supplier_severance_share (@OrgID INT)
+﻿CREATE FUNCTION guest.org_one_side_supplier_severance_share (@OrgID INT)
 
 /*
 Репутация заказчика: доля контрактов с разрывом отношений в одностороннем порядке по решению поставшика, а именно:

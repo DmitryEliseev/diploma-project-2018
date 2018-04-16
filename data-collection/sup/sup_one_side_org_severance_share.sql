@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_one_side_org_severance_share (@SupID INT)
+﻿CREATE FUNCTION guest.sup_one_side_org_severance_share (@SupID INT)
 
 /*
 Репутация поставщика. Доля контрактов с разрывом отношений в одностороннем порядке по решению заказчика, а именно:

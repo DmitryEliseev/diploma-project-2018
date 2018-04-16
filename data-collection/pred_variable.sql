@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION pred_variable (@CntrID INT)
+﻿CREATE FUNCTION guest.pred_variable (@CntrID INT)
 
 /*
 Функция, которая определяет является ли контракт хорошим или плохим (предсказываемая величина).

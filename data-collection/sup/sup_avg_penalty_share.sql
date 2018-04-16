@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_avg_penalty_share (@SupID INT)
+﻿CREATE FUNCTION guest.sup_avg_penalty_share (@SupID INT)
 
 /*
 Сначала производится подсчет доли начисленных пени от цены контракта

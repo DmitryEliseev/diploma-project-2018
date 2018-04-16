@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_okpd_cntr_num (@SupID INT, @OKPDCode INT)
+﻿CREATE FUNCTION guest.sup_okpd_cntr_num (@SupID INT, @OKPDCode INT)
 
 /*
 Количество завершенных контрактов по указанному ОКПД для конкртеного поставщика

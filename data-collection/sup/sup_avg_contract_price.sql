@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_avg_contract_price (@SupID INT)
+﻿CREATE FUNCTION guest.sup_avg_contract_price (@SupID INT)
 
 /*
 Средняя цена контракта заказчика. Цифры после запятой опускаются. 

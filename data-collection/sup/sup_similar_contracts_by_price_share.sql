@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_similar_contracts_by_price_share (@SupID INT, @CntrPrice BIGINT)
+﻿CREATE FUNCTION guest.sup_similar_contracts_by_price_share (@SupID INT, @CntrPrice BIGINT)
 
 /*
 Количество завершенных заказов у поставщика, цена которых отличается от текущего на не более 20%

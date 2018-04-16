@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_num_of_contracts (@SupID INT)
+﻿CREATE FUNCTION guest.sup_num_of_contracts (@SupID INT)
 
 /*
 Количество выполненных контрактов заказчиком

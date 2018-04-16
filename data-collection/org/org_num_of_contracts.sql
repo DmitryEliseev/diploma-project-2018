@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION org_num_of_contracts (@OrgID INT)
+﻿CREATE FUNCTION guest.org_num_of_contracts (@OrgID INT)
 
 /*
 Количество завершенных контрактов у заказчика

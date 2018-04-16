@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION org_one_side_severance_share (@OrgID INT)
+﻿CREATE FUNCTION guest.org_one_side_severance_share (@OrgID INT)
 
 /*
 Скандальность заказчика. 

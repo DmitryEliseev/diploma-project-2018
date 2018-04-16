@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION sup_no_penalty_cntr_share (@SupID INT)
+﻿CREATE FUNCTION guest.sup_no_penalty_cntr_share (@SupID INT)
 
 /*
 Сначала производится подсчет доли начисленных пени от цены контракта
