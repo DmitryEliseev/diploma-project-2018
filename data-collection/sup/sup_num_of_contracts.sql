@@ -1,7 +1,7 @@
 ﻿CREATE FUNCTION guest.sup_num_of_contracts (@SupID INT)
 
 /*
-Количество выполненных контрактов заказчиком
+Количество завершенных контрактов у поставщика
 */
 
 RETURNS FLOAT

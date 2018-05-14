@@ -1,7 +1,7 @@
 ﻿CREATE FUNCTION guest.org_avg_contract_price (@OrgID INT)
 
 /*
-Средняя цена контракта заказчика. Цифры после запятой опускаются. 
+Средняя цена контракта заказчика
 */
 
 RETURNS BIGINT

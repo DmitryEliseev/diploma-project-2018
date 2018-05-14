@@ -1,7 +1,7 @@
 ﻿CREATE FUNCTION guest.sup_avg_contract_price (@SupID INT)
 
 /*
-Средняя цена контракта заказчика. Цифры после запятой опускаются. 
+Средняя цена контракта поставщика
 */
 
 RETURNS BIGINT

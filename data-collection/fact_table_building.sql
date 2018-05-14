@@ -1,4 +1,8 @@
-﻿GO
+﻿/*
+Построение выборки
+*/
+
+GO
 SELECT DISTINCT
 cntr.ID AS 'cntrID',
 ROUND(1.0 * guest.ter_stats.good_cntr_num / guest.ter_stats.cntr_num, 3) AS 'ter_good_cntr_share',
@@ -77,7 +81,7 @@ WHERE
   
 
 GO
---Выбор на 30% больше хороших контрактов
+--Выбор на 50% больше хороших контрактов
 SELECT TOP(CAST(@@ROWCOUNT*1.5 AS INT))
 cntr.ID AS 'cntrID',
 ROUND(1.0 * guest.ter_stats.good_cntr_num / guest.ter_stats.cntr_num, 3) AS 'ter_good_cntr_share',
